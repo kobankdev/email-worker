@@ -1,4 +1,4 @@
-\c email_sender
+--\c email_sender
 
 CREATE TABLE "emails" (
     idEmail SERIAL PRIMARY KEY NOT NULL,
