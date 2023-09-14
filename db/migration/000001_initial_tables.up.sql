@@ -1,3 +1,5 @@
+--CREATE DATABASE email_sender;
+
 --\c email_sender
 
 CREATE TABLE "emails" (

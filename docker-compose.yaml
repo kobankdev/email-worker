@@ -1,10 +1,15 @@
 version: '3.1'
+volumes:
+  data:
 services:
   db:
     image: postgres:14.3
     restart: always
     volumes:
-      - ./data:/var/lib/postgresql/data
+      # Volume dos dados
+      - data:/var/lib/postgresql/data
+      # Scripts
+      - ./scripts:/scripts
     ports:
       - 5432:5432
     healthcheck:
