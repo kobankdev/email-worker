@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_frontend/pages/email_sent_page.dart';
 
-// Create a Form widget.
 class MyCustomForm extends StatefulWidget {
   const MyCustomForm({super.key});
 
@@ -10,25 +10,18 @@ class MyCustomForm extends StatefulWidget {
   }
 }
 
-// Create a corresponding State class.
-// This class holds data related to the form.
 class MyCustomFormState extends State<MyCustomForm> {
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
-  //
-  // Note: This is a GlobalKey<FormState>,
-  // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
+  String subject = '';
+  String message = '';
 
   @override
   Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          //crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text('Email sender'),
             Form(
@@ -37,32 +30,50 @@ class MyCustomFormState extends State<MyCustomForm> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFormField(
+                    autofocus: true,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Assunto',
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
                       }
                       return null;
                     },
+                    onSaved: (newValue) => subject = newValue.toString(),
                   ),
                   TextFormField(
-                    // The validator receives the text that the user has entered.
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Mensagem',
+                    ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
                       }
                       return null;
                     },
+                    onSaved: (newValue) => message = newValue.toString(),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: ElevatedButton(
                       onPressed: () {
-                        // Validate returns true if the form is valid, or false otherwise.
+                        print(subject + message);
                         if (_formKey.currentState!.validate()) {
-                          // If the form is valid, display a snackbar. In the real world,
-                          // you'd often call a server or save the information in a database.
+                          _formKey.currentState!.save();
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Processing Data')),
+                          );
+                          _formKey.currentState!.reset();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EmailSentPage(
+                                      subject: subject,
+                                      message: message,
+                                    )),
                           );
                         }
                       },
