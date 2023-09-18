@@ -1,10 +1,6 @@
---CREATE DATABASE email_sender;
-
---\c email_sender
-
 CREATE TABLE "emails" (
-    idEmail SERIAL PRIMARY KEY NOT NULL,
-    dateSendEmail TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    subjectEmail VARCHAR(100),
+    id SERIAL PRIMARY KEY NOT NULL,
+    dateSendEmail TIMESTAMPTZ NOT NULL DEFAULT  (now()),
+    subjectEmail VARCHAR(100) NOT NULL,
     messageEmail VARCHAR(250) NOT NULL
 );
