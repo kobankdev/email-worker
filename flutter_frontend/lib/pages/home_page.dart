@@ -60,7 +60,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: ElevatedButton(
                       onPressed: () {
-                        print(subject + message);
+                        //print(subject + message);
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
                           ScaffoldMessenger.of(context).showSnackBar(
