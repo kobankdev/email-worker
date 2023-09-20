@@ -1,4 +1,7 @@
 data
+go.mod
+go.sum
+
 # Miscellaneous
 *.class
 *.log
